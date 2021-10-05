@@ -1,24 +1,36 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import getJoke from './helpers/jokeData';
+import Joker from './Joker';
 
 function App() {
+ const [btnText, setBtnText] = useState('Get A Joke');
+ const [joke, setJoke] = useState({});
+
+ const setButton = (text) => {
+  setBtnText(text);
+ }
+
+ const getAJoke = () => {
+   getJoke().then((obj) => {
+      setJoke({
+        setup: obj.setup,
+        punchline: obj.delivery
+      });
+
+      setButton('Get Punchline');
+   })
+ }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Joker joke={joke} btnText={btnText} />
+      {
+        btnText === 'Get A Joke' || btnText === 'Get A New Joke' ? 
+        <button onClick={getAJoke}>{btnText}</button> : 
+        <button onClick={() => setButton('Get A New Joke')}>{btnText}</button>
+      }
+    </>
   );
 }
 
