@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import getJoke from './helpers/jokeData';
-import Joker from './Joker';
+// import Joker from './Joker';
 
 function App() {
  const [btnText, setBtnText] = useState('Get A Joke');
@@ -24,7 +24,8 @@ function App() {
 
   return (
     <>
-      <Joker joke={joke} btnText={btnText} />
+      <h1>{ joke.setup }</h1>
+      <p>{ btnText !== 'Get Punchline' ? joke.punchline : '' }</p>
       {
         btnText === 'Get A Joke' || btnText === 'Get A New Joke' ? 
         <button onClick={getAJoke}>{btnText}</button> : 
